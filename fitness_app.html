@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fitness Tracker - Horizon TechX</title>
+    <style>
+        body { font-family: 'Segoe UI', Arial, sans-serif; background: linear-gradient(135deg, #55efc4, #81ecec); display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; padding: 20px; }
+        .container { background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); max-width: 500px; width: 100%; text-align: center; }
+        h1 { color: #2d3436; margin-bottom: 20px; font-size: 26px; }
+        .form-group { margin-bottom: 15px; text-align: left; }
+        label { font-weight: bold; color: #2d3436; display: block; margin-bottom: 5px; }
+        input { width: 100%; padding: 10px; border: 2px solid #55efc4; border-radius: 8px; box-sizing: border-box; font-size: 16px; }
+        button { background-color: #00b894; color: white; border: none; padding: 12px 20px; font-size: 16px; border-radius: 8px; cursor: pointer; font-weight: bold; width: 100%; margin-top: 10px; transition: 0.2s; }
+        button:hover { background-color: #55efc4; color: #2d3436; }
+        .dashboard { margin-top: 25px; background: #f5f6fa; padding: 15px; border-radius: 10px; text-align: left; }
+        .dashboard h3 { margin-top: 0; color: #2d3436; border-bottom: 2px solid #00b894; padding-bottom: 5px; }
+        .stat-item { display: flex; justify-content: space-between; padding: 8px 0; font-size: 18px; color: #636e72; }
+        .stat-value { font-weight: bold; color: #00b894; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>🏃‍♂️ Fitness Tracker App</h1>
+    
+    <div class="form-group">
+        <label for="steps">Steps Walked:</label>
+        <input type="number" id="steps" placeholder="e.g., 5000">
+    </div>
+    
+    <div class="form-group">
+        <label for="workout">Workout Duration (Minutes):</label>
+        <input type="number" id="workout" placeholder="e.g., 30">
+    </div>
+
+    <button onclick="logData()">Log Activity</button>
+
+    <div class="dashboard">
+        <h3>📊 Today's Dashboard</h3>
+        <div class="stat-item">
+            <span>Total Steps:</span>
+            <span id="totalSteps" class="stat-value">0</span>
+        </div>
+        <div class="stat-item">
+            <span>Workout Time:</span>
+            <span id="totalWorkout" class="stat-value">0 mins</span>
+        </div>
+        <div class="stat-item">
+            <span>Calories Burned (Est.):</span>
+            <span id="totalCalories" class="stat-value">0 kcal</span>
+        </div>
+    </div>
+</div>
+
+<script>
+    let stepsSum = 0;
+    let workoutSum = 0;
+
+    function logData() {
+        const stepsInput = document.getElementById("steps").value;
+        const workoutInput = document.getElementById("workout").value;
+
+        if (stepsInput) stepsSum += parseInt(stepsInput);
+        if (workoutInput) workoutSum += parseInt(workoutInput);
+
+        // Calculate estimated calories (approx 0.04 kcal per step + 8 kcal per min of workout)
+        let caloriesBurned = Math.round((stepsSum * 0.04) + (workoutSum * 8));
+
+        // Update Dashboard
+        document.getElementById("totalSteps").innerText = stepsSum.toLocaleString();
+        document.getElementById("totalWorkout").innerText = workoutSum + " mins";
+        document.getElementById("totalCalories").innerText = caloriesBurned + " kcal";
+
+        // Clear Inputs
+        document.getElementById("steps").value = "";
+        document.getElementById("workout").value = "";
+    }
+</script>
+
+</body>
+</html>

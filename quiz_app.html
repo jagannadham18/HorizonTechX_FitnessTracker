@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flashcard Quiz App - Horizon TechX</title>
+    <style>
+        body { font-family: 'Segoe UI', Arial, sans-serif; background: linear-gradient(135deg, #ffeaa7, #fab1a0); display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; flex-direction: column; }
+        h1 { color: #2d3436; margin-bottom: 20px; }
+        .flashcard { width: 350px; height: 200px; background: white; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); display: flex; justify-content: center; align-items: center; font-size: 20px; font-weight: bold; text-align: center; padding: 20px; cursor: pointer; transition: transform 0.3s; margin-bottom: 20px; color: #2d3436; border: 2px solid #e17055; }
+        .flashcard:active { transform: scale(0.98); }
+        .btn-container { display: flex; gap: 15px; }
+        button { background-color: #e17055; color: white; border: none; padding: 12px 20px; border-radius: 8px; font-size: 16px; cursor: pointer; font-weight: bold; transition: 0.2s; }
+        button:hover { background-color: #fab1a0; color: #2d3436; }
+        .action-btn { background-color: #2d3436; }
+    </style>
+</head>
+<body>
+
+<h1>🧠 Flashcard Quiz App</h1>
+
+<div class="flashcard" id="card" onclick="flipCard()">
+    Click to see the Question!
+</div>
+
+<div class="btn-container">
+    <button class="action-btn" onclick="prevCard()">Previous</button>
+    <button onclick="flipCard()">Show Answer / Flip</button>
+    <button class="action-btn" onclick="nextCard()">Next</button>
+</div>
+
+<script>
+    const flashcards = [
+        { q: "What is the capital of India?", a: "New Delhi" },
+        { q: "Who is known as the father of Indian Constitution?", a: "Dr. B. R. Ambedkar" },
+        { q: "What is the brain of a computer?", a: "CPU (Central Processing Unit)" },
+        { q: "Which planet is known as the Red Planet?", a: "Mars" }
+    ];
+
+    let currentIndex = 0;
+    let isShowingQuestion = true;
+
+    function updateCard() {
+        const card = document.getElementById("card");
+        if (isShowingQuestion) {
+            card.innerText = `❓ Q: ${flashcards[currentIndex].q}`;
+            card.style.background = "white";
+        } else {
+            card.innerText = `💡 A: ${flashcards[currentIndex].a}`;
+            card.style.background = "#dff9fb";
+        }
+    }
+
+    function flipCard() {
+        isShowingQuestion = !isShowingQuestion;
+        updateCard();
+    }
+
+    function nextCard() {
+        currentIndex = (currentIndex + 1) % flashcards.length;
+        isShowingQuestion = true;
+        updateCard();
+    }
+
+    function prevCard() {
+        currentIndex = (currentIndex - 1 + flashcards.length) % flashcards.length;
+        isShowingQuestion = true;
+        updateCard();
+    }
+
+    // Initial load
+    updateCard();
+</script>
+
+</body>
+</html>
